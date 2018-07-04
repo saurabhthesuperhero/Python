@@ -4,6 +4,7 @@ print("Hi awesome %s"%a)
 c=['Hi!!','Hello!!!','welcome to ur assisitant','nice to see ']
 #command
 import os
+import webbrowser
 
 def mycmd():
     
@@ -24,8 +25,13 @@ def mycmd():
     else:
         chat()
 
-        
-            
+def search():
+    searchin=input("Enter search entry\n")
+    if (searchin=='chat'):
+        chat()
+    else:
+        webbrowser.open("http://google.co.in/search?q=%s"%searchin)
+        search()        
 
 
 
@@ -35,6 +41,8 @@ def calc():
     minus=x.find('-')
     mul=x.find('*')
     div=x.find('/')
+    mod=x.find('%')
+    
     length=len(x)
     if plus>=0:
         a=x[0:plus]
@@ -42,26 +50,31 @@ def calc():
         print(int(a)+int(b))
         calc()
     elif mul>=0:
-        a=x[0:plus]
-        b=x[plus:length]
+        a=x[0:mul]
+        b=x[mul+1:length]
         print(int(a)*int(b))
         calc()
 
     elif div>=0:
-        a=x[0:plus]
-        b=x[plus:length]
-        print(int(a)/int(b))
+        a=x[0:div]
+        b=x[div+1:length]
+        print(int(a)//int(b))
         calc()
     elif minus>=0:
-        a=x[0:plus]
-        b=x[plus:length]
+        a=x[0:minus]
+        b=x[minus+1:length]
         
         print(int(a)-int(b))
         calc()
+    
+    elif mod>=0:
+        a=x[0:mod]
+        b=x[mod+1:length]
+        
+        print(int(a)%int(b))
+        calc()
     else:
         chat()
-
-
 
 def chat():
     for i in range(100):
@@ -81,4 +94,6 @@ def chat():
             print("i like  u too,,,  But hey remember Imm datinvg with saurabh,\n my first and last love ")
         elif (b=='command') or (b=='cmd') or (b=='app') :
             mycmd()
+        elif (b=='search'):
+            search()
 chat()
