@@ -8,6 +8,15 @@ import webbrowser
 import bs4
 import requests
 import random
+def translator(tran):
+    res=requests.get('https://www.collinsdictionary.com/dictionary/english/%s'%tran)
+    soup=bs4.BeautifulSoup(res.text,'lxml')
+    meaning=soup.find('div',class_='content-box content-box-definition ced')
+    result=meaning.find('div',class_='hom')
+    print(result.text)
+
+
+
 def lyricservice(lstring):
     #lstring='Perfect ed sheeran'
     res=requests.get('https://search.azlyrics.com/search.php?q=%s'%lstring)
@@ -145,22 +154,26 @@ ilist4=['i luv u','luv u','i love you','i love u','love u']
 olist4=['i like  u too,,,  But hey remember Imm datinvg with saurabh,\n my first and last love ','Thank you !!!!']
 def chat():
     for i in range(100):
-    
-        
-		b=input("")
+        b=input("")
         le=len(b)
         if (b[0:5]=='lyric'):
             lyricservice(b[6:le])
+            chat()
+        elif (b[0:9]=='translate'):
+            translator(b[9:le])
                        
         elif b.lower() in ilist1:
             print(random.choice(olist1))
+            chat()
         elif b.lower() in ilist3:
             print(random.choice(olist3))
+            chat()
         elif b.lower() in ilist2:
             print(random.choice(olist2))
-        elif b.lower()
-        in ilist4:
+            chat()
+        elif b.lower() in ilist4:
             print(random.choice(olist4))
+            chat()
         elif (b=='calc'):
             #print("Have a very good morning dear")
             calc()
